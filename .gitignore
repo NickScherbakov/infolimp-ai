@@ -1,0 +1,13 @@
+# Ignore site verification files (e.g. Yandex.Zen)
+zen_7St17VXlJJyrKa9qnkgZVLfoRzgdaoGhATcqyWunC1M8GPUc02E9YxTKvB1WhkvA.html
+zen_*.html
+
+# Common OS / editor / build artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+node_modules/
+__pycache__/
+*.pyc
+.env
