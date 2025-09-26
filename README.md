@@ -25,3 +25,4 @@ python3 -m http.server 8000
 
 ## Контрибуция
 PR и issues принимаются. При создании PR опишите изменения кратко.
+# Test commit for branch protection
