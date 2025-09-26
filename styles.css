@@ -1,0 +1,533 @@
+:root {
+    --primary-color: #1B4D3E;
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --bg-gradient: linear-gradient(90deg, #1B4D3E 0%, #2A735D 100%);
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+}
+
+header {
+    background: var(--bg-gradient);
+    padding: 2rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.nav-btn {
+    display: block;
+    width: 400px;
+    height: 50px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid var(--text-light);
+    color: var(--text-light);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.nav-btn::before {
+    content: "➜";
+    margin-right: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.nav-btn:hover {
+    background: var(--text-light);
+    color: var(--primary-color);
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--bg-gradient);
+}
+
+.column {
+    background: transparent;
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.counter-block, .info-block, .news-block {
+    background: #ffffff;
+    color: #333333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.counter, .units {
+    color: #1B4D3E;
+    font-weight: bold;
+}
+
+h2, h3, p, li {
+    color: #333333;
+}
+
+.news-item {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.news-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.news-date {
+    display: block;
+    font-size: 0.8em;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.news-link {
+    color: #000; /* Цвет текста для светлой темы */
+    text-decoration: none;
+    font-size: 1.2em; /* Увеличение на 20% */
+    line-height: 1.4;
+    font-weight: 600; /* Увеличение жирности на 10% */
+}
+
+.news-link:hover {
+    text-decoration: underline;
+}
+
+.dark-theme .news-link {
+    color: #fff; /* Цвет текста для темной темы */
+}
+
+.news-feed {
+    height: 400px;
+    overflow-y: auto;
+}
+
+/* Стили для переключателя темы */
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+}
+
+.theme-switch {
+    opacity: 0;
+    position: absolute;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: 0.3s all ease;
+}
+
+.slider {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    background: white;
+    transition: 0.3s all ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sun, .moon {
+    position: absolute;
+    font-size: 14px;
+    transition: opacity 0.3s ease;
+}
+
+.sun {
+    left: 4px;
+    opacity: 1;
+}
+
+.moon {
+    right: 4px;
+    opacity: 0;
+}
+
+/* Анимация переключения */
+.theme-switch:checked + .switch .slider {
+    transform: translateX(30px);
+    background: #333;
+}
+
+.theme-switch:checked + .switch {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.theme-switch:checked + .switch .sun {
+    opacity: 0;
+}
+
+.theme-switch:checked + .switch .moon {
+    opacity: 1;
+}
+
+/* Стили при наведении и фокусе */
+.switch:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.theme-switch:focus + .switch {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Адаптивная верстка */
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Стили для темной темы */
+.dark-theme {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.dark-theme .info-block {
+    background-color: #2d2d2d;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.dark-theme .nav-btn {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-theme .news-block {
+    background-color: #2d2d2d;
+}
+
+.section-block {
+    background-color: #1B4D3E;
+    border-radius: 15px;
+    padding: 2rem;
+    color: #ffffff;
+    margin: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для центрального информационного блока */
+.info-block {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для текста в центральном блоке в светлой теме */
+html[data-user-color-scheme='light'] .info-block {
+    background-color: #ffffff;
+}
+
+html[data-user-color-scheme='light'] .info-block h2,
+html[data-user-color-scheme='light'] .info-block h3,
+html[data-user-color-scheme='light'] .info-block p,
+html[data-user-color-scheme='light'] .info-block li {
+    color: #333333;
+}
+
+/* Стили для темной темы остаются прежними */
+html[data-user-color-scheme='dark'] .info-block {
+    background-color: #2d2d2d;
+}
+
+html[data-user-color-scheme='dark'] .info-block h2,
+html[data-user-color-scheme='dark'] .info-block h3,
+html[data-user-color-scheme='dark'] .info-block p,
+html[data-user-color-scheme='dark'] .info-block li {
+    color: #ffffff;
+}
+
+/* Стили для блока с таймеом */
+.counter-block {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.counter-block h2 {
+    color: #333333;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.counter-block .timer {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Стили для блока новостей */
+.news-block {
+    height: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.news-block h2 {
+    color: #333333;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.news-list {
+    list-style: none;
+    padding: 0;
+}
+
+.news-item {
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.news-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Стили для темной темы */
+.dark-theme .counter-block,
+.dark-theme .info-block,
+.dark-theme .news-block {
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+}
+
+.dark-theme .counter,
+.dark-theme .units,
+.dark-theme h2,
+.dark-theme h3,
+.dark-theme p,
+.dark-theme li {
+    color: #fff;
+}
+
+.dark-theme .news-link {
+    color: #fff;
+}
+
+.dark-theme .news-date {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-theme .news-block h2 {
+    color: #fff;
+    text-align: center;
+}
+
+.info-block h2 {
+    text-align: center;
+}
+
+html[data-user-color-scheme='light'] .info-block h2,
+html[data-user-color-scheme='dark'] .info-block h2 {
+    text-align: center;
+}
+
+.column.center-column {
+    flex: 2;
+    padding: 0 20px;
+}
+
+.column.left-column,
+.column.right-column {
+    flex: 1;
+}
+
+.info-block p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin: 20px 0;
+}
+
+.counter {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #1B4D3E;
+    margin: 10px 0;
+}
+
+.info-block h2 {
+    font-size: 2.6rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.info-block p {
+    font-size: 1.95rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 20px 0;
+}
+
+.info-block h3 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin: 25px 0;
+}
+
+.info-block li {
+    font-size: 1.95rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Центрирует кнопки по горизонтаи */
+    gap: 10px;           /* Добавляет отступ между кнопками */
+    margin-top: 20px;    /* Отступ от заголовка */
+}
+
+.nav-btn {
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 400px;        /* Фиксированная ширина кнопки */
+    height: 50px;
+    padding: 10px 20px;
+}
+
+.dark-theme .nav-btn:hover {
+    background: var(--text-light);
+    color: var(--primary-color);
+}
+
+/* Базовые медиа-запросы для адаптивности */
+@media screen and (max-width: 1024px) {
+    main {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .nav-btn {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .info-block h2 {
+        font-size: 2rem;
+    }
+
+    .info-block p {
+        font-size: 1.5rem;
+    }
+
+    .info-block h3 {
+        font-size: 1.8rem;
+    }
+
+    .info-block li {
+        font-size: 1.5rem;
+    }
+
+    .counter {
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        padding: 1rem;
+    }
+
+    .nav-btn {
+        height: auto;
+        padding: 8px 15px;
+        font-size: 1rem;
+    }
+
+    .info-block h2 {
+        font-size: 1.6rem;
+    }
+
+    .info-block p,
+    .info-block li {
+        font-size: 1.2rem;
+    }
+
+    .counter {
+        font-size: 2rem;
+    }
+}
+
+/* Добавляем гибкие изображения */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Улучшаем читаемость текста на маленьких экранах */
+body {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Стили для тач-устройств */
+@media (hover: none) {
+    .nav-btn:hover {
+        background: transparent;
+        color: var(--text-light);
+    }
+    
+    .nav-btn:active {
+        background: var(--text-light);
+        color: var(--primary-color);
+    }
+}
+
+/* Улучшаем доступность для тач-устройств */
+.nav-btn {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Стили для светлой темы */
+a:link { color: #6161ff; } /* Оптимальный цвет для обоих режимов */
+a:visited { color: #6d4b8d; }
+a:hover { color: #3252e0; }
+a:active { color: #ff4040; }
+
+/* Стили для темной темы */
+.dark-theme a:link { color: lightskyblue; } /* Более светлый оттенок для темного режима */
+.dark-theme a:visited { color: #b69fce; } /* Светлее чем #6d4b8d */
+.dark-theme a:hover { color: #ffffff; }
+.dark-theme a:active { color: #ff6060; }
