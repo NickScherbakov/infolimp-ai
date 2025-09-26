@@ -1,0 +1,78 @@
+# Workflow: set-branch-protection
+# This workflow sets branch protection for the `main` branch using a
+# Personal Access Token stored in the repository secret ADMIN_PAT.
+# Usage:
+# 1) Create a repo secret named ADMIN_PAT with a PAT that has repo administration rights.
+# 2) In Actions → Workflows → Set branch protection, click "Run workflow" and trigger it.
+
+name: Set branch protection
+
+on:
+  workflow_dispatch:
+    inputs:
+      enforce_admins:
+        description: 'Enforce rules for administrators'
+        required: false
+        default: 'true'
+      required_approving_review_count:
+        description: 'Number of approving reviews required before merge'
+        required: false
+        default: '1'
+
+jobs:
+  set-protection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check ADMIN_PAT
+        run: |
+          if [ -z "${{ secrets.ADMIN_PAT }}" ]; then
+            echo "Error: ADMIN_PAT secret is not set. Please add it in repository Settings → Secrets → Actions.";
+            exit 1;
+          fi
+
+      - name: Apply branch protection via GitHub API
+        env:
+          ADMIN_PAT: ${{ secrets.ADMIN_PAT }}
+          OWNER: NickScherbakov
+          REPO: infolimp-ai
+          BRANCH: main
+          ENFORCE_ADMINS: ${{ github.event.inputs.enforce_admins }}
+          REQUIRED_APPROVING_REVIEW_COUNT: ${{ github.event.inputs.required_approving_review_count }}
+        run: |
+          set -eu
+          echo "Applying branch protection to ${OWNER}/${REPO} branch ${BRANCH}"
+
+          PAYLOAD=$(cat <<EOF
+{
+  "required_status_checks": null,
+  "enforce_admins": ${ENFORCE_ADMINS},
+  "required_pull_request_reviews": {
+    "dismiss_stale_reviews": true,
+    "require_code_owner_reviews": false,
+    "required_approving_review_count": ${REQUIRED_APPROVING_REVIEW_COUNT}
+  },
+  "restrictions": null
+}
+EOF
+)
+
+          echo "PATCH payload:\n$PAYLOAD"
+
+          RESPONSE=$(curl -s -w "HTTPSTATUS:%{http_code}" -X PUT \
+            -H "Authorization: token ${ADMIN_PAT}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${OWNER}/${REPO}/branches/${BRANCH}/protection" \
+            -d "$PAYLOAD")
+
+          BODY=$(echo "$RESPONSE" | sed -e 's/HTTPSTATUS:.*//g')
+          STATUS=$(echo "$RESPONSE" | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+
+          echo "HTTP status: $STATUS"
+          echo "Response body: $BODY"
+
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
+            echo "Branch protection applied successfully."
+          else
+            echo "Failed to apply branch protection (status $STATUS). Check the PAT scopes and repository permissions.";
+            exit 1
+          fi
