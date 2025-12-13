@@ -44,11 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open('https://t.me/infolimp_bot', '_blank');
     });
 
-        // Добавляем обработчик для третьей кнопки (индекс 2)
-        navButtons[2].addEventListener('click', () => {
-            window.open('https://ninel-gpt.infolimp.keenetic.pro/tetriphone.html', '_blank'); //@Infolimp_ru_bot
-            //window.open('https://t.me/Infolimp_ru_bot', '_blank');  
-        });
+    // Добавляем обработчик для третьей кнопки (индекс 2)
+    navButtons[2].addEventListener('click', () => {
+        window.open('https://nickscherbakov.github.io/very-simple-tetris-created-by-Copilot/', '_blank');
+    });
 });
 
 document.getElementById('theme-switch').addEventListener('change', (e) => {
