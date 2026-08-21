@@ -1,6 +1,10 @@
 ﻿function initCountdown() {
-    const examDate = new Date('June 1, 2025 10:00:00').getTime();
+    const examDate = new Date('June 1, 2026 10:00:00').getTime();
     const counterElement = document.querySelector('.counter');
+
+    if (!counterElement) {
+        return;
+    }
     
     const timer = setInterval(() => {
         const now = new Date().getTime();
@@ -11,7 +15,7 @@
         
         if (distance < 0) {
             clearInterval(timer);
-            counterElement.innerHTML = '<a href="couple.mp4"_blank">Наши выпускники</a>';
+            counterElement.innerHTML = '<a href="couple.mp4" target="_blank" rel="noopener noreferrer">Наши выпускники</a>';
         }
     }, 1000);
 }
@@ -27,44 +31,52 @@ function toggleTheme(isDark) {
 }
 document.addEventListener('DOMContentLoaded', () => {
     const themeSwitch = document.getElementById('theme-switch');
-    themeSwitch.checked = false;
-    toggleTheme(false);
+    if (themeSwitch) {
+        themeSwitch.checked = false;
+        toggleTheme(false);
+        themeSwitch.addEventListener('change', (e) => {
+            toggleTheme(e.target.checked);
+        });
+    }
+
     initCountdown();
     loadFipiNews();
-    const infoButton = document.querySelector('.nav-btn');
-    infoButton.addEventListener('click', () => {
-        window.open('https://chat.infolimp.keenetic.pro', '_blank');
-    });
-
-    // Получаем все кнопки навигации
     const navButtons = document.querySelectorAll('.nav-btn');
 
-    // Добавляем обработчик для второй кнопки (индекс 1)
-    navButtons[1].addEventListener('click', () => {
-        window.open('https://t.me/infolimp_bot', '_blank');
-    });
+    if (navButtons[0]) {
+        navButtons[0].addEventListener('click', () => {
+            window.open('https://chat.infolimp.keenetic.pro', '_blank');
+        });
+    }
 
-    // Добавляем обработчик для третьей кнопки (индекс 2)
-    navButtons[2].addEventListener('click', () => {
-        window.open('https://nickscherbakov.github.io/very-simple-tetris-created-by-Copilot/', '_blank');
-    });
-});
+    if (navButtons[1]) {
+        navButtons[1].addEventListener('click', () => {
+            window.open('https://t.me/infolimp_bot', '_blank');
+        });
+    }
 
-document.getElementById('theme-switch').addEventListener('change', (e) => {
-    toggleTheme(e.target.checked);
-});
+    if (navButtons[2]) {
+        navButtons[2].addEventListener('click', () => {
+            window.open('https://nickscherbakov.github.io/very-simple-tetris-created-by-Copilot/', '_blank');
+        });
+    }
 
-document.querySelectorAll('.nav-btn').forEach(button => {
-    button.addEventListener('mouseenter', () => {
-        button.classList.add('hovered');
-    });
+    navButtons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+            button.classList.add('hovered');
+        });
 
-    button.addEventListener('mouseleave', () => {
-        button.classList.remove('hovered');
+        button.addEventListener('mouseleave', () => {
+            button.classList.remove('hovered');
+        });
     });
 });
 function loadFipiNews() {
     const newsContainer = document.querySelector('.news-feed');
+    if (!newsContainer) {
+        return;
+    }
+
     const newsItems = [
         {
             date: '12.12.2024',
